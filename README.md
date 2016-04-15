@@ -196,18 +196,23 @@ The dimension of the matrix is determined by the cardinalities of the node and i
 If you have a huge BBN, the inference algorithm (likelihood weight sampling) might take a while. You might want to experiment with the WebWorker. Basically, the BBN is serialized and passed to the WebWorker; the WebWorker deserializes the BBN and performs the sampling, after which it serializes the BBN and passes back to your calling script. Below is a code snippet.
 
 ```
-g.reinit();
-  var worker = new Worker('path/to/js/lib/jsbayes-ww.js');
-  worker.onerror = function(e) {
-    console.error(e);
-  };
-  worker.onmessage = function(e) {
-    console.log(e);
-    var obj = JSON.parse(e.data);
-    console.log(obj);
-    
-    g.update(obj.nodes);
-    console.log(g);
-  };
-  worker.postMessage(jsbayes.toMessage(g));
+var g = jsbayes.newGraph();
+var n1 = g.addNode('n1', ['0','1]);
+//add more nodes
+//define parents for nodes
+g.reinit(); //initialize node
+
+var worker = new Worker('path/to/js/lib/jsbayes-ww.js');
+worker.onerror = function(e) {
+  console.error(e);
+};
+worker.onmessage = function(e) {
+  console.log(e);
+  var obj = JSON.parse(e.data);
+  console.log(obj);
+
+  g.update(obj.nodes);
+  console.log(g);
+};
+worker.postMessage(jsbayes.toMessage(g));
   ```

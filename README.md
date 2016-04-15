@@ -163,6 +163,7 @@ Each parent creates an array with the number of elements that is equal to its nu
 
  - Node with two values creates `[ [], [] ]`
  - Node with three values creates `[ [], [], [] ]`
+
 The elements of the array are also arrays until we get to the last parent, at which point, the number of elements is equal to the number of values of the child.
 
 Needless to say, for a given node with multiple parents, it is going to be *VERY HARD* to define these CPTs. A helper method `setCpt()` can help alleviate creating the CPTs. You may use it as follows.

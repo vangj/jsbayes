@@ -1,5 +1,5 @@
 jsbayes
-======
+=======
 This JavaScript library is a Bayesian Belief Network (BBN) inference tool using likelihood weight sampling. It is somewhat of a copy/paste job from the original source [bayes.js](https://github.com/Pl4n3/bayes.js). The original code has been revised with the following enhancements.
 
  - add utility methods for convenience
@@ -176,7 +176,7 @@ n3.setCpt([
  [ 0.8, 0.2 ]
 ]);
 ```
-Notice how we have *flattened* the nested arrays? The helper method `setCpt()` will not change the structure of the CPT but will map the array of array (matrix) to the required underlying structure. Let's call this *flattened* array of array a *matrix* since you may reference the elements/items by a row-column fashion (e.g. `cpt[0][0]`). Now, let's understand the matrix that we need to pass in with this new helper method. Denote the *cardinality* of a node as the number of values it has; for example, for a binary node, the cardinality is 2 (since it has 2 values). You will always need a matrix with enough elements (conditional probabilities) to equal the product of the node's cardinalities with its parents' cardinalities. 
+Notice how we have *flattened* the nested arrays? The helper method `setCpt()` will not change the structure of the CPT but will map the array of array (2D matrix) to the required underlying structure. Let's call this *flattened* array of array a *2D matrix* or just matrix for short since you may reference the elements/items by a row-column fashion (e.g. `cpt[0][0]`). Now, let's understand the matrix that we need to pass in with this new helper method. Denote the *cardinality* of a node as the number of values it has; for example, for a binary node, the cardinality is 2 (since it has 2 values). You will always need a matrix with enough elements (conditional probabilities) to equal the product of the node's cardinalities with its parents' cardinalities. 
 
 For example, assume we are only dealing with binary nodes (nodes with 2 values or alternatively, cardinality of 2), and node `n2` is a parent of `n1`, then the number of conditional probabilities we need to specify is 4 since 2 x 2 = 4. Again, assuming only binary nodes and `n2` and `n3` are parents of `n1`, then the number of conditional probabilities we need to specify is 8 since 2 x 2 x 2 = 8. Denote the product of the cardinalities (a node's and its parents' cardinalities) as **P**. 
 
@@ -191,3 +191,23 @@ The dimension of the matrix is determined by the cardinalities of the node and i
 | 0  | 1  | 0.8 | 0.2 |
 | 1  | 0  | 0.2 | 0.8 |
 | 1  | 1  | 0.8 | 0.2 |
+
+#Using WebWorker
+If you have a huge BBN, the inference algorithm (likelihood weight sampling) might take a while. You might want to experiment with the WebWorker. Basically, the BBN is serialized and passed to the WebWorker; the WebWorker deserializes the BBN and performs the sampling, after which it serializes the BBN and passes back to your calling script. Below is a code snippet.
+
+```
+g.reinit();
+  var worker = new Worker('path/to/js/lib/jsbayes-ww.js');
+  worker.onerror = function(e) {
+    console.error(e);
+  };
+  worker.onmessage = function(e) {
+    console.log(e);
+    var obj = JSON.parse(e.data);
+    console.log(obj);
+    
+    g.update(obj.nodes);
+    console.log(g);
+  };
+  worker.postMessage(jsbayes.toMessage(g));
+  ```

@@ -11,6 +11,10 @@ You may use jsbayes on the client-side (e.g. Chrome) or server-side (e.g. NodeJS
 
 `<script type="text/javascript" src="jsbayes.js"></script>`
 
+Alternatively, use bower to install.
+
+`bower install jsbayes --save`
+
 On the server-side, use `npm` to install.
 
 `npm install jsbayes --save`

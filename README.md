@@ -47,6 +47,20 @@ g.reinit()
 
 The `reinit()` and `sample()` methods each return a `Promise` so you may chain actions.
 
+To programmatically mark a node as observed, do something like the following. Note that you have to sample again.
+
+```
+g.observe('n1', 'true');
+g.sample(10000);
+```
+
+If you want to unobserve a node, do something like the following.
+
+```
+g.unobserve('n1');
+g.sample(10000);
+```
+
 #Defining Conditional Probability Tables (CPTs)
 The toughest thing you're going to encounter is how to specify CPTs for each node. Expressed in JavaScript, a CPT is an array of arrays of arrays of arrays .... (multi-dimensional arrays). 
 

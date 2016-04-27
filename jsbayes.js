@@ -149,6 +149,37 @@
             tnode.sampledLw = unode.sampledLw;
           }
         },
+        node: function(name) {
+          if(!this.nodeMap) {
+            this.nodeMap = {};
+            for(var i=0; i < this.nodes.length; i++) {
+              var node = this.nodes[i];
+              this.nodeMap[node.name] = node;
+            }
+          }
+          return this.nodeMap[name];
+        },
+        observe: function(name, value) {
+          var node = this.node(name);
+          if(node) {
+            var index = node.valueIndex(value);
+            if(index >= 0) {
+              node.isObserved = true;
+              node.value = index;
+            } else {
+              console.error('could not find value ' + value + ' for node ' + name);
+            }
+          } else {
+            console.error('could not find node with name ' + name);
+          }
+        },
+        unobserve: function(name) {
+          var node = this.node(name);
+          if(node) {
+            node.isObserved = false;
+            node.value = -1;
+          }
+        },
         addNode: function(name, values) {
           var node = {
             name: name,
@@ -161,6 +192,16 @@
               this.parents.push(parent);
               this.dirty = true;
               return this;
+            },
+            valueIndex: function(v) {
+              if(!this.valueIndexMap) {
+                this.valueIndexMap = {};
+                for(var i=0; i < this.values.length; i++) {
+                  var value = this.values[i];
+                  this.valueIndexMap[value] = i;
+                }
+              }
+              return this.valueIndexMap[v];
             },
             initSampleLw: function() {
               this.sampledLw = undefined;
@@ -218,6 +259,22 @@
               } else {
                 this.cpt = initNodeCpt(this.values, this.parents, probs);
               }
+            },
+            probs: function() {
+              if(!this.sampledLw) {
+                return [];
+              }
+              var sum = 0.0;
+              var probs = [];
+              for(var i=0; i < this.sampledLw.length; i++) {
+                var s = this.sampledLw[i];
+                sum += s;
+                probs.push(s);
+              }
+              for(var i=0; i < this.sampledLw.length; i++) {
+                probs[i] = probs[i] / sum;
+              }
+              return probs;
             }
           }
           this.nodes.push(node);

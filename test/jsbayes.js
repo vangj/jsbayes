@@ -121,126 +121,280 @@ describe('#graph', function() {
       expect(s2).to.be.within(0.49, 0.51);
     });
   });
+  
+  it('verifies sampling with observation', function() {
+    var g = jsbayes.newGraph();
+    var n1 = g.addNode('n1', ['t', 'f']);
+    var n2 = g.addNode('n2', ['t', 'f']);
+    var n3 = g.addNode('n3', ['t', 'f']);
 
-  describe('#nodes', function() {
-    it('verifies set cpt one parent', function() {
-      var g = jsbayes.newGraph();
-      var n1 = g.addNode('n1', ['0', '1']);
-      var n2 = g.addNode('n2', ['0', '1']);
-      var n3 = g.addNode('n3', ['0', '1', '2']);
+    n2.addParent(n1);
+    n3.addParent(n2);
 
-      n2.addParent(n1);
-      n3.addParent(n2);
-      
-      n1.setCpt([ 0.5, 0.5 ]);
-      n2.setCpt([
-        [ 0.5, 0.5 ],
-        [ 0.2, 0.8 ]
-      ]);
-      n3.setCpt([
-        [ 0.3, 0.6, 0.1 ],
-        [ 0.1, 0.3, 0.6 ]
-      ]);
-      
-      expect(n1.cpt).to.deep.equal([ 0.5, 0.5 ]);
-      expect(n2.cpt).to.deep.equal([ [ 0.5, 0.5 ], [ 0.2, 0.8 ] ]);
-      expect(n3.cpt).to.deep.equal([ [ 0.3, 0.6, 0.1 ], [ 0.1, 0.3, 0.6 ] ]);
-    });
-
-    it('verifies set cpt two parents', function() {
-      var g = jsbayes.newGraph();
-      var n1 = g.addNode('n1', ['0', '1']);
-      var n2 = g.addNode('n2', ['0', '1']);
-      var n3 = g.addNode('n3', ['0', '1']);
-
-      n3.addParent(n1);
-      n3.addParent(n2);
-
-      n1.setCpt([ 0.5, 0.5 ]);
-      n2.setCpt([ 0.5, 0.5 ]);
-      n3.setCpt([
-        [ 0.9, 0.1 ],
-        [ 0.8, 0.2 ],
-        [ 0.7, 0.3 ],
-        [ 0.6, 0.4 ]
-      ]);
-      
-      expect(n1.cpt).to.deep.equal([ 0.5, 0.5 ]);
-      expect(n2.cpt).to.deep.equal([ 0.5, 0.5 ]);
-      expect(n3.cpt).to.deep.equal([ 
-        [ [ 0.9, 0.1 ], [ 0.8, 0.2 ] ],
-        [ [ 0.7, 0.3 ], [ 0.6, 0.4 ] ] 
-      ]);
-    });
+    n1.cpt = [ 0.5, 0.5 ];
+    n2.cpt = [ [ 0.2, 0.8 ], [ 0.5, 0.5 ] ];
+    n3.cpt = [ [ 0.5, 0.5 ], [ 0.5, 0.5 ] ];
+    n1.value = 0;
+    n1.isObserved = true;
+    g.sample(10000);
     
-    it('verifies set cpt three parents', function() {
-      var g = jsbayes.newGraph();
-      var n1 = g.addNode('n1', ['0', '1']);
-      var n2 = g.addNode('n2', ['0', '1']);
-      var n3 = g.addNode('n3', ['0', '1']);
-      var n4 = g.addNode('n4', ['0', '1']);
+    var probs = n1.probs();
+    var p1 = probs[0];
+    var p2 = probs[1];
+    expect(p1).to.be.within(0.99, 1.0);
+    expect(p2).to.be.within(0.0, 0.0);
+    
+    probs = n2.probs();
+    p1 = probs[0];
+    p2 = probs[1];
+    expect(p1).to.be.within(0.19,0.21);
+    expect(p2).to.be.within(0.79,0.81);
+    
+    probs = n3.probs();
+    p1 = probs[0];
+    p2 = probs[1];
+    expect(p1).to.be.within(0.49,0.51);
+    expect(p2).to.be.within(0.49,0.51);
+    
+    n1.isObserved = false;
+    g.sample(10000);
+    
+    probs = n1.probs();
+    p1 = probs[0];
+    p2 = probs[1];
+    expect(p1).to.be.within(0.49,0.51);
+    expect(p2).to.be.within(0.49,0.51);
+    
+    probs = n2.probs();
+    p1 = probs[0];
+    p2 = probs[1];
+    expect(p1).to.be.within(0.34,0.36);
+    expect(p2).to.be.within(0.64,0.66);
+    
+    probs = n3.probs();
+    p1 = probs[0];
+    p2 = probs[1];
+    expect(p1).to.be.within(0.49,0.51);
+    expect(p2).to.be.within(0.49,0.51);
+  });
+  
+  it('verifies sampling with observation alternative method', function() {
+    var g = jsbayes.newGraph();
+    var n1 = g.addNode('n1', ['t', 'f']);
+    var n2 = g.addNode('n2', ['t', 'f']);
+    var n3 = g.addNode('n3', ['t', 'f']);
 
-      n4.addParent(n1);
-      n4.addParent(n2);
-      n4.addParent(n3);
+    n2.addParent(n1);
+    n3.addParent(n2);
 
-      n1.setCpt([ 0.5, 0.5 ]);
-      n2.setCpt([ 0.5, 0.5 ]);
-      n3.setCpt([ 0.5, 0.5 ]);
-      n4.setCpt([
-        [ 0.9, 0.1 ],
-        [ 0.8, 0.2 ],
-        [ 0.7, 0.3 ],
-        [ 0.6, 0.4 ],
-        [ 0.5, 0.5 ],
-        [ 0.4, 0.6 ],
-        [ 0.3, 0.7 ],
-        [ 0.2, 0.8 ]
-      ]);
-      
-      expect(n1.cpt).to.deep.equal([ 0.5, 0.5 ]);
-      expect(n2.cpt).to.deep.equal([ 0.5, 0.5 ]);
-      expect(n3.cpt).to.deep.equal([ 0.5, 0.5 ]);
-      expect(n4.cpt).to.deep.equal(
-        [//n1
-          [//n1=0
-            [//n2=0
-              [//n3=0
-                0.9,0.1
-              ],
-              [//n3=1
-                0.8,0.2
-              ]
+    n1.cpt = [ 0.5, 0.5 ];
+    n2.cpt = [ [ 0.2, 0.8 ], [ 0.5, 0.5 ] ];
+    n3.cpt = [ [ 0.5, 0.5 ], [ 0.5, 0.5 ] ];
+    
+    g.observe('n1', 't');
+    g.sample(10000);
+    
+    var probs = n1.probs();
+    var p1 = probs[0];
+    var p2 = probs[1];
+    expect(p1).to.be.within(0.99, 1.0);
+    expect(p2).to.be.within(0.0, 0.0);
+    
+    probs = n2.probs();
+    p1 = probs[0];
+    p2 = probs[1];
+    expect(p1).to.be.within(0.19,0.21);
+    expect(p2).to.be.within(0.79,0.81);
+    
+    probs = n3.probs();
+    p1 = probs[0];
+    p2 = probs[1];
+    expect(p1).to.be.within(0.49,0.51);
+    expect(p2).to.be.within(0.49,0.51);
+    
+    g.unobserve('n1');
+    g.sample(10000);
+    
+    probs = n1.probs();
+    p1 = probs[0];
+    p2 = probs[1];
+    expect(p1).to.be.within(0.49,0.51);
+    expect(p2).to.be.within(0.49,0.51);
+    
+    probs = n2.probs();
+    p1 = probs[0];
+    p2 = probs[1];
+    expect(p1).to.be.within(0.34,0.36);
+    expect(p2).to.be.within(0.64,0.66);
+    
+    probs = n3.probs();
+    p1 = probs[0];
+    p2 = probs[1];
+    expect(p1).to.be.within(0.49,0.51);
+    expect(p2).to.be.within(0.49,0.51);
+  });
+});
+
+describe('#nodes', function() {
+  it('verifies get node by id', function() {
+    var g = jsbayes.newGraph();
+    var n1 = g.addNode('n1', ['t', 'f']);
+    var n2 = g.addNode('n2', ['t', 'f']);
+    var n3 = g.addNode('n3', ['t', 'f']);
+
+    n2.addParent(n1);
+    n3.addParent(n2);
+
+    var n = g.node('n1');
+    expect(n.name).to.equals('n1');
+
+    n = g.node('n2');
+    expect(n.name).to.equals('n2');
+
+    n = g.node('n3');
+    expect(n.name).to.equals('n3');
+  });
+
+  it('verifies get index of values', function() {
+    var g = jsbayes.newGraph();
+    var n1 = g.addNode('n1', ['t', 'f']);
+    var n2 = g.addNode('n2', ['t', 'f']);
+    var n3 = g.addNode('n3', ['f', 't']); //swapped
+
+    var i1 = n1.valueIndex('t');
+    var i2 = n1.valueIndex('f');
+    expect(i1).to.equals(0);
+    expect(i2).to.equals(1);
+
+    i1 = n2.valueIndex('t');
+    i2 = n2.valueIndex('f');
+    expect(i1).to.equals(0);
+    expect(i2).to.equals(1);
+
+    i1 = n3.valueIndex('t');
+    i2 = n3.valueIndex('f');
+    expect(i1).to.equals(1);
+    expect(i2).to.equals(0);
+  });
+
+  it('verifies set cpt one parent', function() {
+    var g = jsbayes.newGraph();
+    var n1 = g.addNode('n1', ['0', '1']);
+    var n2 = g.addNode('n2', ['0', '1']);
+    var n3 = g.addNode('n3', ['0', '1', '2']);
+
+    n2.addParent(n1);
+    n3.addParent(n2);
+
+    n1.setCpt([ 0.5, 0.5 ]);
+    n2.setCpt([
+      [ 0.5, 0.5 ],
+      [ 0.2, 0.8 ]
+    ]);
+    n3.setCpt([
+      [ 0.3, 0.6, 0.1 ],
+      [ 0.1, 0.3, 0.6 ]
+    ]);
+
+    expect(n1.cpt).to.deep.equal([ 0.5, 0.5 ]);
+    expect(n2.cpt).to.deep.equal([ [ 0.5, 0.5 ], [ 0.2, 0.8 ] ]);
+    expect(n3.cpt).to.deep.equal([ [ 0.3, 0.6, 0.1 ], [ 0.1, 0.3, 0.6 ] ]);
+  });
+
+  it('verifies set cpt two parents', function() {
+    var g = jsbayes.newGraph();
+    var n1 = g.addNode('n1', ['0', '1']);
+    var n2 = g.addNode('n2', ['0', '1']);
+    var n3 = g.addNode('n3', ['0', '1']);
+
+    n3.addParent(n1);
+    n3.addParent(n2);
+
+    n1.setCpt([ 0.5, 0.5 ]);
+    n2.setCpt([ 0.5, 0.5 ]);
+    n3.setCpt([
+      [ 0.9, 0.1 ],
+      [ 0.8, 0.2 ],
+      [ 0.7, 0.3 ],
+      [ 0.6, 0.4 ]
+    ]);
+
+    expect(n1.cpt).to.deep.equal([ 0.5, 0.5 ]);
+    expect(n2.cpt).to.deep.equal([ 0.5, 0.5 ]);
+    expect(n3.cpt).to.deep.equal([ 
+      [ [ 0.9, 0.1 ], [ 0.8, 0.2 ] ],
+      [ [ 0.7, 0.3 ], [ 0.6, 0.4 ] ] 
+    ]);
+  });
+
+  it('verifies set cpt three parents', function() {
+    var g = jsbayes.newGraph();
+    var n1 = g.addNode('n1', ['0', '1']);
+    var n2 = g.addNode('n2', ['0', '1']);
+    var n3 = g.addNode('n3', ['0', '1']);
+    var n4 = g.addNode('n4', ['0', '1']);
+
+    n4.addParent(n1);
+    n4.addParent(n2);
+    n4.addParent(n3);
+
+    n1.setCpt([ 0.5, 0.5 ]);
+    n2.setCpt([ 0.5, 0.5 ]);
+    n3.setCpt([ 0.5, 0.5 ]);
+    n4.setCpt([
+      [ 0.9, 0.1 ],
+      [ 0.8, 0.2 ],
+      [ 0.7, 0.3 ],
+      [ 0.6, 0.4 ],
+      [ 0.5, 0.5 ],
+      [ 0.4, 0.6 ],
+      [ 0.3, 0.7 ],
+      [ 0.2, 0.8 ]
+    ]);
+
+    expect(n1.cpt).to.deep.equal([ 0.5, 0.5 ]);
+    expect(n2.cpt).to.deep.equal([ 0.5, 0.5 ]);
+    expect(n3.cpt).to.deep.equal([ 0.5, 0.5 ]);
+    expect(n4.cpt).to.deep.equal(
+      [//n1
+        [//n1=0
+          [//n2=0
+            [//n3=0
+              0.9,0.1
             ],
-            [//n2=1
-              [//n3=0
-                0.7,0.3
-              ],
-              [//n3=1
-                0.6,0.4
-              ]
+            [//n3=1
+              0.8,0.2
             ]
           ],
-          [//n1=1
-            [//n2=0
-              [//n3=0
-                0.5,0.5
-              ],
-              [//n3=1
-                0.4,0.6
-              ]
+          [//n2=1
+            [//n3=0
+              0.7,0.3
             ],
-            [//n2=1
-              [//n3=0
-                0.3,0.7
-              ],
-              [//n3=1
-                0.2,0.8
-              ]
+            [//n3=1
+              0.6,0.4
+            ]
+          ]
+        ],
+        [//n1=1
+          [//n2=0
+            [//n3=0
+              0.5,0.5
+            ],
+            [//n3=1
+              0.4,0.6
+            ]
+          ],
+          [//n2=1
+            [//n3=0
+              0.3,0.7
+            ],
+            [//n3=1
+              0.2,0.8
             ]
           ]
         ]
-      );
-    });
+      ]
+    );
   });
 });
+

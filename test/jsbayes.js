@@ -265,6 +265,32 @@ describe('#graph', function() {
     //samples should not increase but be resetted and readded
     expect(g.samples.length).to.equals(500);
   });
+  
+  it('verifies samples are converted to csv', function() {
+    var g = jsbayes.newGraph();
+    g.saveSamples = true;
+    var n1 = g.addNode('n1', ['t', 'f']);
+    var n2 = g.addNode('n2', ['t', 'f']);
+    var n3 = g.addNode('n3', ['t', 'f']);
+
+    n2.addParent(n1);
+    n3.addParent(n2);
+
+    n1.cpt = [ 0.5, 0.5 ];
+    n2.cpt = [ [ 0.2, 0.8 ], [ 0.5, 0.5 ] ];
+    n3.cpt = [ [ 0.5, 0.5 ], [ 0.5, 0.5 ] ];
+    
+    g.sample(10);
+    var csv = g.samplesAsCsv({});
+    
+    var rows = csv.split('\n');
+    expect(rows.length).to.equals(11);
+    
+    for(var i=0; i < rows.length; i++) {
+      var cols = rows[i].split(',');
+      expect(cols.length).to.equals(3);
+    }
+  })
 });
 
 describe('#nodes', function() {

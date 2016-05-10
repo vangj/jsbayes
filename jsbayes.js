@@ -105,6 +105,37 @@
           };
           return async(f, [this]);
         },
+        samplesAsCsv: function(options) {
+          var D_ROW = options.rowDelimiter || '\n';
+          var D_FIELD = options.fieldDelimiter || ',';
+          var csv = '';
+          var row = '';
+          for(var i=0; i < this.nodes.length; i++) {
+            row += this.nodes[i].name;
+            if(i < this.nodes.length-1) {
+              row += D_FIELD;
+            }
+          }
+          csv += row + D_ROW;
+
+          for(var i=0; i < this.samples.length; i++) {
+            var sample = this.samples[i];
+            row = '';
+            for(var j=0; j < this.nodes.length; j++) {
+              var node = this.nodes[j];
+              row += sample[node.name];
+              if(j < this.nodes.length-1) {
+                row += D_FIELD;
+              }
+            }
+            csv += row;
+            if(i < this.samples.length-1) {
+              csv += D_ROW;
+            }
+          }
+          
+          return csv;
+        },
         sample: function(samples) {
           var f = function(g, samples) {
             if(g.saveSamples) {

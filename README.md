@@ -61,6 +61,14 @@ g.unobserve('n1');
 g.sample(10000);
 ```
 
+If you want to save the actual samples generated, do the following.
+
+```
+g.saveSamples = true;
+g.sample(10000);
+//your results will be stored in g.samples
+```
+
 #Defining Conditional Probability Tables (CPTs)
 The toughest thing you're going to encounter is how to specify CPTs for each node. Expressed in JavaScript, a CPT is an array of arrays of arrays of arrays .... (multi-dimensional arrays). 
 

@@ -91,6 +91,8 @@
     jsbayes.newGraph = function() {
       return {
         nodes: [],
+        saveSamples: false,
+        samples: [],
         reinit: function() {
           var f = function(g) {
             for(var i=0; i < g.nodes.length; i++) {
@@ -105,6 +107,11 @@
         },
         sample: function(samples) {
           var f = function(g, samples) {
+            if(g.saveSamples) {
+              //reset the samples if we want to save them
+              g.samples = [];
+            }
+            
             for(var h=g.nodes.length-1; h >= 0; h--) {
               g.nodes[h].initSampleLw();
             }
@@ -128,6 +135,15 @@
               for(var h=g.nodes.length-1; h >= 0; h--) {
                 var n = g.nodes[h];
                 n.saveSampleLw(fa);
+              }
+              
+              if(g.saveSamples) {
+                var sample = {};
+                for(var h=g.nodes.length-1; h >= 0; h--) {
+                  var n = g.nodes[h];
+                  sample[n.name] = n.value;
+                }
+                g.samples.push(sample);
               }
             }
 

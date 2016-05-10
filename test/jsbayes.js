@@ -233,6 +233,38 @@ describe('#graph', function() {
     expect(p1).to.be.within(0.49,0.51);
     expect(p2).to.be.within(0.49,0.51);
   });
+  
+  it('verifies samples are saved when requested', function() {
+    var g = jsbayes.newGraph();
+    var n1 = g.addNode('n1', ['t', 'f']);
+    var n2 = g.addNode('n2', ['t', 'f']);
+    var n3 = g.addNode('n3', ['t', 'f']);
+
+    n2.addParent(n1);
+    n3.addParent(n2);
+
+    n1.cpt = [ 0.5, 0.5 ];
+    n2.cpt = [ [ 0.2, 0.8 ], [ 0.5, 0.5 ] ];
+    n3.cpt = [ [ 0.5, 0.5 ], [ 0.5, 0.5 ] ];
+    
+    g.observe('n1', 't');
+    g.sample(10000);
+    
+    expect(g.samples.length).to.equals(0);
+    
+    g.saveSamples = true;
+    g.sample(1000);
+    
+    expect(g.samples.length).to.equals(1000);
+    
+    g.sample(1000);
+    //samples should not increase but be resetted and readded
+    expect(g.samples.length).to.equals(1000);
+    
+    g.sample(500);
+    //samples should not increase but be resetted and readded
+    expect(g.samples.length).to.equals(500);
+  });
 });
 
 describe('#nodes', function() {

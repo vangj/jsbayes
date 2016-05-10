@@ -141,7 +141,7 @@
                 var sample = {};
                 for(var h=g.nodes.length-1; h >= 0; h--) {
                   var n = g.nodes[h];
-                  sample[n.name] = n.value;
+                  sample[n.name] = n.values[n.value];
                 }
                 g.samples.push(sample);
               }

@@ -106,8 +106,9 @@
           return async(f, [this]);
         },
         samplesAsCsv: function(options) {
-          var D_ROW = options.rowDelimiter || '\n';
-          var D_FIELD = options.fieldDelimiter || ',';
+          var opts = options || {};
+          var D_ROW = opts.rowDelimiter || '\n';
+          var D_FIELD = opts.fieldDelimiter || ',';
           var csv = '';
           var row = '';
           for(var i=0; i < this.nodes.length; i++) {

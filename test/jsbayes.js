@@ -281,7 +281,7 @@ describe('#graph', function() {
     n3.cpt = [ [ 0.5, 0.5 ], [ 0.5, 0.5 ] ];
     
     g.sample(10);
-    var csv = g.samplesAsCsv({});
+    var csv = g.samplesAsCsv();
     
     var rows = csv.split('\n');
     expect(rows.length).to.equals(11);

@@ -18,7 +18,7 @@
     if(parents && parents.length > 0) {
       if(parents.length === 1 || paIndex === parents.length -1) {
         var cpts = [];
-        for(var i=0; i < parents[0].values.length; i++) {
+        for(var i=0; i < parents[paIndex].values.length; i++) {
           var cpt = initCpt(values.length);
           cpts.push(cpt);
         }

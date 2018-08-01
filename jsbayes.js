@@ -16,16 +16,19 @@
 
   function initCptWithParents(values, parents, paIndex) {
     if(parents && parents.length > 0) {
-      if(parents.length === 1 || paIndex === parents.length -1) {
+      if(parents.length === 1 || paIndex === parents.length - 1) {
+        var idx = parents.length === 1 ? 0 : paIndex;
+        var numPaVals = parents[idx].values.length;
         var cpts = [];
-        for(var i=0; i < parents[0].values.length; i++) {
+        for(var i=0; i < numPaVals; i++) {
           var cpt = initCpt(values.length);
           cpts.push(cpt);
         }
         return cpts;
       } else {
         var cpts = [];
-        for(var i=0; i < parents[paIndex].values.length; i++) {
+        var numPaVals = parents[paIndex].values.length;
+        for(var i=0; i < numPaVals; i++) {
           var cpt = initCptWithParents(values, parents, paIndex+1);
           cpts.push(cpt);
         }
@@ -84,6 +87,27 @@
     var cpt = initCptWithParents(values, parents, 0);
     setNodeCptProbs(cpt, probs, 0);
     return cpt;
+  }
+
+  function normalizeProbs(arr) {
+    var probs = [];
+    var sum = 0.0;
+    for (var i=0; i < arr.length; i++) {
+      probs[i] = arr[i] + 0.001
+      sum += probs[i]
+    }
+    for (var i=0; i < arr.length; i++) {
+      probs[i] = probs[i] / sum;
+    }
+    return probs;
+  }
+
+  function normalizeCpts(cpts) {
+    var probs = []
+    for (var i=0; i < cpts.length; i++) {
+      probs.push(normalizeProbs(cpts[i]));
+    }
+    return probs;
   }
 
   function defineLib() {
@@ -303,9 +327,9 @@
             },
             setCpt: function(probs) {
               if(this.parents.length === 0) {
-                this.cpt = probs;
+                this.cpt = normalizeProbs(probs);
               } else {
-                this.cpt = initNodeCpt(this.values, this.parents, probs);
+                this.cpt = initNodeCpt(this.values, this.parents, normalizeCpts(probs));
               }
             },
             probs: function() {

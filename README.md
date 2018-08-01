@@ -242,3 +242,12 @@ worker.onmessage = function(e) {
 };
 worker.postMessage(jsbayes.toMessage(g));
   ```
+
+# Unit Testing
+
+To run the unit tests, make sure you have NodeJS and npm installed and type in the following.
+
+```bash
+npm install
+make
+```

@@ -1,6 +1,11 @@
 (function(window) {
   'use strict';
 
+  /**
+   * Initializes a conditional probability table.
+   * @param {Number} numValues Number of values.
+   * @returns {Array} Array of doubles that sum to 1.0.
+   */
   function initCpt(numValues) {
     var cpt = [];
     var sum = 0;
@@ -14,6 +19,13 @@
     return cpt;
   }
 
+  /**
+   * Initializes a CPT with fake and normalized values using recursion.
+   * @param {Array} values Values of variables (array of values).
+   * @param {Array} parents Array of JSON nodes that are parents of the variable.
+   * @param {Number} paIndex The current parent index.
+   * @returns {Array} An array of nested arrays representing the CPT.
+   */
   function initCptWithParents(values, parents, paIndex) {
     if(parents && parents.length > 0) {
       if(parents.length === 1 || paIndex === parents.length - 1) {
@@ -39,6 +51,12 @@
     }
   }
 
+  /**
+   * Creates a Promise.
+   * @param {Object} f Function.
+   * @param {Array} args List of arguments.
+   * @returns {Promise} Promise.
+   */
   function async(f, args) {
     return new Promise(
       function(resolve, reject) {
@@ -52,10 +70,20 @@
     );
   }
 
+  /**
+   * Checks if an object is an array.
+   * @param {*} o Object.
+   * @returns {Boolean} A boolean to indicate if the object is an array object.
+   */
   function isArray(o) {
     return (o.constructor === Array);
   }
 
+  /**
+   * Checks if an object is an array of arrays.
+   * @param {*} o Object.
+   * @returns {Boolean} A boolean to indicate if the object is array of arrays.
+   */
   function isArrayOfArray(o) {
     if(isArray(o)) {
       if(o.length > 0) {
@@ -67,6 +95,13 @@
     return false;
   }
 
+  /**
+   * Sets the CPT entries to the specified probabilities.
+   * @param {Array} cpt Array of nested arrays representing a CPT.
+   * @param {Array} probs Array of arrays of probabilities representing a CPT.
+   * @param {Number} index The current index.
+   * @returns {Number} The next index.
+   */
   function setNodeCptProbs(cpt, probs, index) {
     if(!isArrayOfArray(cpt)) {
       for(var i=0; i < cpt.length; i++) {
@@ -83,12 +118,26 @@
     }
   }
 
+  /**
+   * Initializes a node's CPT.
+   * @param {Array} values Array of values.
+   * @param {Array} parents Array of parents.
+   * @param {Array} probs Array of arrays of probabilities.
+   * @returns {Array} Array of nested arrays representing a CPT.
+   */
   function initNodeCpt(values, parents, probs) {
     var cpt = initCptWithParents(values, parents, 0);
     setNodeCptProbs(cpt, probs, 0);
     return cpt;
   }
 
+  /**
+   * Normalizes an array of values such that the elements sum to 1.0. Note that
+   * 0.001 is added to every value to avoid 0.0 probabilities. This adjustment
+   * helps with visualization downstream.
+   * @param {Array} arr Array of probabilities.
+   * @returns {Array} Normalized probailities.
+   */
   function normalizeProbs(arr) {
     var probs = [];
     var sum = 0.0;
@@ -102,6 +151,11 @@
     return probs;
   }
 
+  /**
+   * Normalizes a CPT.
+   * @param {Array} cpts Array of arrays (matrix) representing a CPT.
+   * @returns {Array} Normalized CPT.
+   */
   function normalizeCpts(cpts) {
     var probs = []
     for (var i=0; i < cpts.length; i++) {
@@ -110,6 +164,9 @@
     return probs;
   }
 
+  /**
+   * Defines the library.
+   */
   function defineLib() {
     var jsbayes = {};
     jsbayes.newGraph = function() {

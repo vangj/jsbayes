@@ -6,7 +6,7 @@ This JavaScript library is a Bayesian Belief Network (BBN) inference tool using 
  - able to be used client-side (bower) or server-side (npm)
  - use WebWorker for computationally expensive sampling
 
-#How do I use jsbayes?
+# How do I use jsbayes?
 You may use jsbayes on the client-side (e.g. Chrome) or server-side (e.g. NodeJS). On the client-side, simply include a reference to the source file.
 
 `<script type="text/javascript" src="jsbayes.js"></script>`
@@ -69,7 +69,7 @@ g.sample(10000);
 //your results will be stored in g.samples
 ```
 
-#Defining Conditional Probability Tables (CPTs)
+# Defining Conditional Probability Tables (CPTs)
 The toughest thing you're going to encounter is how to specify CPTs for each node. Expressed in JavaScript, a CPT is an array of arrays of arrays of arrays .... (multi-dimensional arrays). 
 
 For a node `n1` with two values (e.g. true and false), also referred to as a binary node, and no parents, the CPT will look like the following. Notice how the values sum to 1.0?
@@ -218,7 +218,7 @@ The dimension of the matrix is determined by the cardinalities of the node and i
 | 1  | 0  | 0.2 | 0.8 |
 | 1  | 1  | 0.8 | 0.2 |
 
-#Using WebWorker
+# Using WebWorker
 If you have a huge BBN, the inference algorithm (likelihood weight sampling) might take a while. You might want to experiment with the WebWorker. Basically, the BBN is serialized and passed to the WebWorker; the WebWorker deserializes the BBN and performs the sampling, after which it serializes the BBN and passes back to your calling script. Below is a code snippet.
 
 ```

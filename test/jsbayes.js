@@ -92,33 +92,36 @@ describe('#graph', function() {
     n2.cpt = [ [ 0.5, 0.5 ], [ 0.5, 0.5 ] ];
     n3.cpt = [ [ 0.5, 0.5 ], [ 0.5, 0.5 ] ];
 
-    g.sample(10000)
+    var r = g.sample(10000)
     .then(function(r) {
       expect(r).to.equals(10000);
 
       expect(n1.sampledLw.length).to.equal(2);
       var s1 = n1.sampledLw[0];
       var s2 = n1.sampledLw[1];
-      s1 = s1 / (s1 + s2);
-      s2 = s2 / (s1 + s2);
-      expect(s1).to.be.within(0.49, 0.51);
-      expect(s2).to.be.within(0.49, 0.51);
+      var v1 = s1 / (s1 + s2);
+      var v2 = s2 / (s1 + s2);
+      expect(v1).to.be.within(0.49, 0.51);
+      expect(v2).to.be.within(0.49, 0.51);
 
       expect(n2.sampledLw.length).to.equal(2);
       s1 = n2.sampledLw[0];
       s2 = n2.sampledLw[1];
-      s1 = s1 / (s1 + s2);
-      s2 = s2 / (s1 + s2);
-      expect(s1).to.be.within(0.49, 0.51);
-      expect(s2).to.be.within(0.49, 0.51);
+      v1 = s1 / (s1 + s2);
+      v2 = s2 / (s1 + s2);
+      expect(v1).to.be.within(0.49, 0.51);
+      expect(v2).to.be.within(0.49, 0.51);
 
       expect(n3.sampledLw.length).to.equal(2);
       s1 = n3.sampledLw[0];
       s2 = n3.sampledLw[1];
-      s1 = s1 / (s1 + s2);
-      s2 = s2 / (s1 + s2);
-      expect(s1).to.be.within(0.49, 0.51);
-      expect(s2).to.be.within(0.49, 0.51);
+      v1 = s1 / (s1 + s2);
+      v2 = s2 / (s1 + s2);
+      expect(v1).to.be.within(0.49, 0.51);
+      expect(v2).to.be.within(0.49, 0.51);
+    })
+    .catch(function(e) {
+      assert(true == false, 'Exception occurred: ' + e);
     });
   });
   
@@ -218,8 +221,8 @@ describe('#graph', function() {
     probs = n1.probs();
     p1 = probs[0];
     p2 = probs[1];
-    expect(p1).to.be.within(0.49,0.51);
-    expect(p2).to.be.within(0.49,0.51);
+    expect(p1).to.be.within(0.49,0.52);
+    expect(p2).to.be.within(0.49,0.52);
     
     probs = n2.probs();
     p1 = probs[0];

@@ -6,6 +6,7 @@ interface JNode {
   name: string;
   values: Array<string>;
   cpt: number[][] | number[];
+  sampledLw: Array<number>;
   addParent(parent: JNode): JNode;
   setCpt(probs: number[][] | number[]): void;
   probs(): Array<number>;

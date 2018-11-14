@@ -1,6 +1,6 @@
 {
   "name": "jsbayes",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "Simple Bayesian Belief Network (BBN) library in JavaScript.",
   "main": "jsbayes.js",
   "scripts": {

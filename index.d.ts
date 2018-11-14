@@ -18,7 +18,7 @@ interface Graph {
   sample(samples: number): Promise<any>;
   observe(name: string, value: string): void;
   unobserve(name: string): void;
-  samplesAsCsv(options: CsvOptions): string;
+  samplesAsCsv(options: CsvOptions | any): string;
 }
 interface JsBayes {
   newGraph(): Graph;

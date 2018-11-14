@@ -2,18 +2,18 @@ interface CsvOptions {
   rowDelimiter: string;
   fieldDelimiter: string;
 }
-interface Node {
+interface JNode {
   name: string;
   values: Array<string>;
   cpt: number[][] | number[];
-  addParent(parent: Node): Node;
+  addParent(parent: JNode): JNode;
   setCpt(probs: number[][] | number[]): void;
   probs(): Array<number>;
 }
-interface Graph {
+interface JGraph {
   saveSamples: boolean;
-  nodes: Array<Node>;
-  addNode(name: string, values: Array<string>): Node;
+  nodes: Array<JNode>;
+  addNode(name: string, values: Array<string>): JNode;
   reinit(): Promise<any>;
   sample(samples: number): Promise<any>;
   observe(name: string, value: string): void;
@@ -21,7 +21,7 @@ interface Graph {
   samplesAsCsv(options: CsvOptions | any): string;
 }
 interface JsBayes {
-  newGraph(): Graph;
+  newGraph(): JGraph;
 }
 declare module "jsbayes" {
   let jsbayes: JsBayes;

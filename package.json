@@ -1,15 +1,33 @@
 {
-  "name": "jsbayes",
-  "version": "0.1.0",
+  "name": "@fizz/jsbayes",
+  "version": "0.2.0",
   "description": "Simple Bayesian Belief Network (BBN) library in JavaScript.",
-  "main": "jsbayes.js",
-  "scripts": {
-    "test": "make test"
+  "author": "Jee Vang <vangjee@gmail.com> (http://vangjee.wordpress.com)",
+  "license": "Apache-2.0",
+  "publishConfig": {
+    "access": "restricted",
+    "registry": "https://npm.fizz.studio"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/vangj/jsbayes.git"
+    "url": "git+https://github.com/fizzstudio/jsbayes.git"
   },
+  "bugs": {
+    "url": "https://github.com/fizzstudio/jsbayes/issues"
+  },
+  "homepage": "https://github.com/fizzstudio/jsbayes#readme",
+  "module": "dist/jsbayes.esm.js",
+  "scripts": {
+    "build": "rollup -c",
+    "dev": "rollup -c -w",
+    "test": "make test",
+    "pubpatch": "npm version patch && npm publish",
+    "pubminor": "npm version minor && npm publish",
+    "pubmajor": "npm version major && npm publish"
+  },
+  "files": [
+    "dist"
+  ],
   "keywords": [
     "bayesian",
     "network",
@@ -21,14 +39,17 @@
     "likelihood",
     "casual"
   ],
-  "author": "Jee Vang <vangjee@gmail.com> (http://vangjee.wordpress.com)",
-  "license": "Apache-2.0",
-  "bugs": {
-    "url": "https://github.com/vangj/jsbayes/issues"
-  },
-  "homepage": "https://github.com/vangj/jsbayes#readme",
   "devDependencies": {
+    "@rollup/plugin-eslint": "^8.0.1",
+    "@rollup/plugin-json": "^4.1.0",
+    "@rollup/plugin-node-resolve": "^13.0.6",
+    "browser-sync": "^2.27.10",
     "chai": "^3.5.0",
-    "mocha": "^5.2.0"
+    "eslint": "^8.3.0",
+    "jsdoc": "^3.6.7",
+    "kis-jsdoc-plugin": "^1.4.9",
+    "mocha": "^10.2.0",
+    "rollup": "^2.60.0",
+    "typescript": "^4.9.4"
   }
 }

@@ -1,0 +1,5 @@
+// .hintrc: configures WebHint feature of VSCode Edge Devtools extension to ignore IE11 compat issues
+{
+  "extends": ["development"],
+  "browserslist": ["defaults", "not IE 11"]
+}

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0" y="0" width="470" height="423" viewBox="0, 0, 470, 423">
+  <g id="Background">
+    <rect x="0" y="0" width="470" height="423" fill="#FFFFFF"/>
+  </g>
+  <g id="Layer_1">
+    <g>
+      <g>
+        <path d="M168.5,120.5 C150.827,120.5 136.5,106.173 136.5,88.5 C136.5,70.827 150.827,56.5 168.5,56.5 C186.173,56.5 200.5,70.827 200.5,88.5 C200.5,106.173 186.173,120.5 168.5,120.5 z" fill="#2B2B2B"/>
+        <path d="M168.5,120.5 C150.827,120.5 136.5,106.173 136.5,88.5 C136.5,70.827 150.827,56.5 168.5,56.5 C186.173,56.5 200.5,70.827 200.5,88.5 C200.5,106.173 186.173,120.5 168.5,120.5 z" fill-opacity="0" stroke="#000000" stroke-width="1"/>
+      </g>
+      <text transform="matrix(1, 0, 0, 1, 168, 88)">
+        <tspan x="-24" y="15.5" font-family="AppleColorEmoji" font-size="48" fill="#000000">⛈️</tspan>
+      </text>
+    </g>
+    <g>
+      <g>
+        <path d="M64.5,248.5 C46.827,248.5 32.5,234.173 32.5,216.5 C32.5,198.827 46.827,184.5 64.5,184.5 C82.173,184.5 96.5,198.827 96.5,216.5 C96.5,234.173 82.173,248.5 64.5,248.5 z" fill="#2B2B2B"/>
+        <path d="M64.5,248.5 C46.827,248.5 32.5,234.173 32.5,216.5 C32.5,198.827 46.827,184.5 64.5,184.5 C82.173,184.5 96.5,198.827 96.5,216.5 C96.5,234.173 82.173,248.5 64.5,248.5 z" fill-opacity="0" stroke="#000000" stroke-width="1"/>
+      </g>
+      <text transform="matrix(1, 0, 0, 1, 64, 219.118)">
+        <tspan x="-24" y="15.5" font-family="AppleColorEmoji" font-size="48" fill="#000000">⚡️</tspan>
+      </text>
+    </g>
+    <g>
+      <g>
+        <path d="M168.5,360.5 C150.827,360.5 136.5,346.173 136.5,328.5 C136.5,310.827 150.827,296.5 168.5,296.5 C186.173,296.5 200.5,310.827 200.5,328.5 C200.5,346.173 186.173,360.5 168.5,360.5 z" fill="#2B2B2B"/>
+        <path d="M168.5,360.5 C150.827,360.5 136.5,346.173 136.5,328.5 C136.5,310.827 150.827,296.5 168.5,296.5 C186.173,296.5 200.5,310.827 200.5,328.5 C200.5,346.173 186.173,360.5 168.5,360.5 z" fill-opacity="0" stroke="#000000" stroke-width="1"/>
+      </g>
+      <text transform="matrix(1, 0, 0, 1, 168, 331.602)">
+        <tspan x="-24" y="15.5" font-family="AppleColorEmoji" font-size="48" fill="#000000">🔥</tspan>
+      </text>
+    </g>
+    <g>
+      <g>
+        <path d="M264.5,248.5 C246.827,248.5 232.5,234.173 232.5,216.5 C232.5,198.827 246.827,184.5 264.5,184.5 C282.173,184.5 296.5,198.827 296.5,216.5 C296.5,234.173 282.173,248.5 264.5,248.5 z" fill="#2B2B2B"/>
+        <path d="M264.5,248.5 C246.827,248.5 232.5,234.173 232.5,216.5 C232.5,198.827 246.827,184.5 264.5,184.5 C282.173,184.5 296.5,198.827 296.5,216.5 C296.5,234.173 282.173,248.5 264.5,248.5 z" fill-opacity="0" stroke="#000000" stroke-width="1"/>
+      </g>
+      <text transform="matrix(1, 0, 0, 1, 264.516, 217.809)">
+        <tspan x="-24" y="15.5" font-family="AppleColorEmoji" font-size="48" fill="#000000">🪵</tspan>
+      </text>
+    </g>
+    <g>
+      <g>
+        <path d="M64.5,360.5 C46.827,360.5 32.5,346.173 32.5,328.5 C32.5,310.827 46.827,296.5 64.5,296.5 C82.173,296.5 96.5,310.827 96.5,328.5 C96.5,346.173 82.173,360.5 64.5,360.5 z" fill="#2B2B2B"/>
+        <path d="M64.5,360.5 C46.827,360.5 32.5,346.173 32.5,328.5 C32.5,310.827 46.827,296.5 64.5,296.5 C82.173,296.5 96.5,310.827 96.5,328.5 C96.5,346.173 82.173,360.5 64.5,360.5 z" fill-opacity="0" stroke="#000000" stroke-width="1"/>
+      </g>
+      <text transform="matrix(1, 0, 0, 1, 64, 330.051)">
+        <tspan x="-24" y="15.5" font-family="AppleColorEmoji" font-size="48" fill="#000000">💥</tspan>
+      </text>
+    </g>
+    <g>
+      <g>
+        <path d="M360.5,120.5 C342.827,120.5 328.5,106.173 328.5,88.5 C328.5,70.827 342.827,56.5 360.5,56.5 C378.173,56.5 392.5,70.827 392.5,88.5 C392.5,106.173 378.173,120.5 360.5,120.5 z" fill="#2B2B2B"/>
+        <path d="M360.5,120.5 C342.827,120.5 328.5,106.173 328.5,88.5 C328.5,70.827 342.827,56.5 360.5,56.5 C378.173,56.5 392.5,70.827 392.5,88.5 C392.5,106.173 378.173,120.5 360.5,120.5 z" fill-opacity="0" stroke="#000000" stroke-width="1"/>
+      </g>
+      <text transform="matrix(1, 0, 0, 1, 361.443, 92.37)">
+        <tspan x="-24" y="15.5" font-family="AppleColorEmoji" font-size="48" fill="#000000">🚌</tspan>
+      </text>
+    </g>
+    <g>
+      <path d="M144.5,120.5 L94.427,177.727" fill-opacity="0" stroke="#000000" stroke-width="1"/>
+      <path d="M92.169,175.751 L89.159,183.747 L96.684,179.702 z" fill="#000000" fill-opacity="1" stroke="#000000" stroke-width="1" stroke-opacity="1"/>
+    </g>
+    <g>
+      <path d="M64.5,256.5 L64.5,279.5" fill-opacity="0" stroke="#000000" stroke-width="1"/>
+      <path d="M61.5,279.5 L64.5,287.5 L67.5,279.5 z" fill="#000000" fill-opacity="1" stroke="#000000" stroke-width="1" stroke-opacity="1"/>
+    </g>
+    <g>
+      <path d="M344.5,120.5 L294.427,177.727" fill-opacity="0" stroke="#000000" stroke-width="1"/>
+      <path d="M292.169,175.751 L289.159,183.747 L296.684,179.702 z" fill="#000000" fill-opacity="1" stroke="#000000" stroke-width="1" stroke-opacity="1"/>
+    </g>
+    <g>
+      <path d="M192.5,120.5 L242.573,177.727" fill-opacity="0" stroke="#000000" stroke-width="1"/>
+      <path d="M240.316,179.702 L247.841,183.747 L244.831,175.751 z" fill="#000000" fill-opacity="1" stroke="#000000" stroke-width="1" stroke-opacity="1"/>
+    </g>
+    <g>
+      <path d="M168.5,128.5 L168.5,279.5" fill-opacity="0" stroke="#000000" stroke-width="1"/>
+      <path d="M165.5,279.5 L168.5,287.5 L171.5,279.5 z" fill="#000000" fill-opacity="1" stroke="#000000" stroke-width="1" stroke-opacity="1"/>
+    </g>
+    <g>
+      <path d="M88.5,248.5 L137.667,290.643" fill-opacity="0" stroke="#000000" stroke-width="1"/>
+      <path d="M135.714,292.921 L143.741,295.849 L139.619,288.365 z" fill="#000000" fill-opacity="1" stroke="#000000" stroke-width="1" stroke-opacity="1"/>
+    </g>
+    <g>
+      <path d="M248.5,256.5 L206.864,298.136" fill-opacity="0" stroke="#000000" stroke-width="1"/>
+      <path d="M204.743,296.015 L201.207,303.793 L208.985,300.257 z" fill="#000000" fill-opacity="1" stroke="#000000" stroke-width="1" stroke-opacity="1"/>
+    </g>
+  </g>
+</svg>

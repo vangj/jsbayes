@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang='en'>
+<head>
+    <meta charset='utf-8'>
+    <meta name='viewport' content='width=device-width'>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📉</text></svg>">
+
+  <title>Line Chart Module</title>
+
+  <style>
+   body {
+       font-family: 'Helvetica Neue', Arial, sans-serif;
+       color: #333;
+       font-weight: 300;
+   }
+   #diagram {
+       margin: 0 auto;
+       text-align: center;
+   }
+   #container {
+       display: grid;
+       grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+       width: 30rem;
+       border: solid black 1px;
+       padding: 0.25rem;
+       margin: 0 auto;
+   }
+   .header {
+       text-align: center;
+       font-weight: bold;
+   }
+   .name {
+       text-align: right;
+       font-weight: bold;
+   }
+   .t {
+       background: palegreen;
+   }
+   .f {
+       background: lightpink;
+   }
+   span {
+       padding: 0.25rem;
+   }
+  </style>
+  <link rel="stylesheet" href="./line_chart_style.css">
+  
+  <script type="module" src="./test.js"></script>
+
+</head>
+<body>
+    <h1>JSBayes Demo</h1>
+    <div id="container">
+        <div></div>
+        <span class="header">Observed</span>
+        <span class="header">Value</span>
+        <span class="header">p(true)</span>
+        <span class="header">p(false)</span>
+        <div class="name">Storm ⛈️</div>
+        <input type="checkbox" id="storm-obs-cbox" autocomplete="off">
+        <input type="checkbox" id="storm-val-cbox" autocomplete="off">
+        <span id="storm-t" class="t"></span>
+        <span id="storm-f" class="f"></span>
+        <div class="name">Lightning ⚡️</div>
+        <input type="checkbox" id="lightning-obs-cbox" autocomplete="off">
+        <input type="checkbox" id="lightning-val-cbox" autocomplete="off">
+        <span id="lightning-t" class="t"></span>
+        <span id="lightning-f" class="f"></span>
+        <div class="name">Thunder 💥</div>
+        <input type="checkbox" id="thunder-obs-cbox" autocomplete="off">
+        <input type="checkbox" id="thunder-val-cbox" autocomplete="off">
+        <span id="thunder-t" class="t"></span>
+        <span id="thunder-f" class="f"></span>
+        <div class="name">Campfire 🪵</div>
+        <input type="checkbox" id="campfire-obs-cbox" autocomplete="off">
+        <input type="checkbox" id="campfire-val-cbox" autocomplete="off">
+        <span id="campfire-t" class="t"></span>
+        <span id="campfire-f" class="f"></span>
+        <div class="name">Forest Fire 🔥</div>
+        <input type="checkbox" id="forest-fire-obs-cbox" autocomplete="off">
+        <input type="checkbox" id="forest-fire-val-cbox" autocomplete="off">
+        <span id="forest-fire-t" class="t"></span>
+        <span id="forest-fire-f" class="f"></span>
+        <div class="name">Bus Tour Group 🚌</div>
+        <input type="checkbox" id="bus-tour-group-obs-cbox" autocomplete="off">
+        <input type="checkbox" id="bus-tour-group-val-cbox" autocomplete="off">
+        <span id="bus-tour-group-t" class="t"></span>
+        <span id="bus-tour-group-f" class="f"></span>
+    </div>
+    <div id="diagram"><img src="demo.svg"></div>
+</body>
+</html>

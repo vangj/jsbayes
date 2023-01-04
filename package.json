@@ -16,11 +16,12 @@
     "url": "https://github.com/fizzstudio/jsbayes/issues"
   },
   "homepage": "https://github.com/fizzstudio/jsbayes#readme",
+  "type": "module",
   "module": "dist/jsbayes.esm.js",
   "scripts": {
     "build": "rollup -c",
     "dev": "rollup -c -w",
-    "test": "make test",
+    "test": "ava test.js",
     "pubpatch": "npm version patch && npm publish",
     "pubminor": "npm version minor && npm publish",
     "pubmajor": "npm version major && npm publish"
@@ -43,6 +44,7 @@
     "@rollup/plugin-eslint": "^8.0.1",
     "@rollup/plugin-json": "^4.1.0",
     "@rollup/plugin-node-resolve": "^13.0.6",
+    "ava": "^5.1.0",
     "browser-sync": "^2.27.10",
     "chai": "^3.5.0",
     "eslint": "^8.3.0",

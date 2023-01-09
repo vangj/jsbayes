@@ -142,7 +142,7 @@ function normalizeCpts(cpts) {
   return probs;
 }
 
-class JNode {
+export class JNode {
 
   constructor(name, values) {
     this.name = name;

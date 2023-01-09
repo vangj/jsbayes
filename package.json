@@ -27,8 +27,9 @@
     "pubmajor": "npm version major && npm publish"
   },
   "files": [
-    "dist"
+    "src/main.js"
   ],
+  "exports": "./src/main.js",
   "keywords": [
     "bayesian",
     "network",
@@ -42,7 +43,6 @@
   ],
   "devDependencies": {
     "@rollup/plugin-eslint": "^8.0.1",
-    "@rollup/plugin-json": "^4.1.0",
     "@rollup/plugin-node-resolve": "^13.0.6",
     "ava": "^5.1.0",
     "browser-sync": "^2.27.10",

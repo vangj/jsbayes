@@ -144,17 +144,32 @@ function normalizeCpts(cpts) {
 
 export class JNode {
 
+  /**
+   * @param {string} name 
+   * @param {any[]} values 
+   */
   constructor(name, values) {
+    /** @type {string} */
     this.name = name;
+    /** @type {any[]} */
     this.values = values;
+    /** @type {number} */
     this.value = -1;
+    /** @type {JNode[]} */
     this.parents = [];
+    /** @type {boolean} */
     this.wasSampled = false;
+    /** @type {number[] | undefined} */
     this._sampledLw = undefined;
+    /** @type {boolean} */
+    this.dirty = false;
+    /** @type {boolean} */
+    this.isObserved = false;
   }
 
   /**
      @param {JNode} parent
+     @returns {JNode}
    */
   addParent(parent) {
     this.parents.push(parent);
@@ -162,6 +177,10 @@ export class JNode {
     return this;
   }
 
+  /**
+   * @param {*} v 
+   * @returns {number} 
+   */
   valueIndex(v) {
     if (!this.valueIndexMap) {
       this.valueIndexMap = {};
@@ -171,6 +190,24 @@ export class JNode {
       }
     }
     return this.valueIndexMap[v];
+  }
+
+  /**
+   * @param {*} value 
+   */
+  observe(value) {
+    const index = this.valueIndex(value);
+    if (index >= 0) {
+      this.isObserved = true;
+      this.value = index;
+    } else {
+      console.error('could not find value ' + value + ' for node ' + name);
+    }
+  }
+
+  unobserve() {
+    this.isObserved = false;
+    this.value = -1;
   }
 
   initSampleLw() {
@@ -241,7 +278,9 @@ export class JNode {
 export class JGraph {
 
   constructor() {
+    /** @type {JNode[]} */
     this.nodes = [];
+    /** @type {boolean} */
     this.saveSamples = false;
     this.samples = [];
   }
@@ -310,6 +349,10 @@ export class JGraph {
     }
   }
 
+  /**
+   * @param {string} name 
+   * @returns {JNode}
+   */
   node(name) {
     if (!this.nodeMap) {
       this.nodeMap = {};
@@ -321,29 +364,34 @@ export class JGraph {
     return this.nodeMap[name];
   }
 
+  /**
+   * @param {string} name 
+   * @param {*} value 
+   */
   observe(name, value) {
     const node = this.node(name);
     if (node) {
-      const index = node.valueIndex(value);
-      if (index >= 0) {
-        node.isObserved = true;
-        node.value = index;
-      } else {
-        console.error('could not find value ' + value + ' for node ' + name);
-      }
+      node.observe(value);
     } else {
       console.error('could not find node with name ' + name);
     }
   }
 
+  /**
+   * @param {string} name 
+   */
   unobserve(name) {
     const node = this.node(name);
     if (node) {
-      node.isObserved = false;
-      node.value = -1;
+      node.unobserve();
     }
   }
 
+  /**
+   * @param {string} name 
+   * @param {any[]} values 
+   * @returns {JNode}
+   */
   addNode(name, values) {
     const node = new JNode(name, values);
     this.nodes.push(node);

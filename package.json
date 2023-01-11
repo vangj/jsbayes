@@ -27,8 +27,10 @@
     "pubmajor": "npm version major && npm publish"
   },
   "files": [
-    "src/main.js"
+    "src/main.js",
+    "src/main.d.ts"
   ],
+  "types": "./src/main.d.ts",
   "exports": "./src/main.js",
   "keywords": [
     "bayesian",

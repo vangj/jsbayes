@@ -1,9 +1,8 @@
-'use strict';
 
 /**
  * Initializes a conditional probability table.
- * @param {Number} numValues Number of values.
- * @returns {Array} Array of doubles that sum to 1.0.
+ * @param {number} numValues Number of values.
+ * @returns {number[]} Array of doubles that sum to 1.0.
  */
 function initCpt(numValues) {
   const cpt = [];
@@ -20,10 +19,10 @@ function initCpt(numValues) {
 
 /**
  * Initializes a CPT with fake and normalized values using recursion.
- * @param {Array} values Values of variables (array of values).
- * @param {Array} parents Array of JSON nodes that are parents of the variable.
- * @param {Number} paIndex The current parent index.
- * @returns {Array} An array of nested arrays representing the CPT.
+ * @param {any[]} values Values of variables (array of values).
+ * @param {JNode[]} parents Array of nodes that are parents of the variable.
+ * @param {number} paIndex The current parent index.
+ * @returns {any[]} An array of nested arrays representing the CPT.
  */
 function initCptWithParents(values, parents, paIndex) {
   if (parents && parents.length > 0) {
@@ -51,7 +50,7 @@ function initCptWithParents(values, parents, paIndex) {
 /**
  * Checks if an object is an array.
  * @param {*} o Object.
- * @returns {Boolean} A boolean to indicate if the object is an array object.
+ * @returns {boolean} A boolean to indicate if the object is an array object.
  */
 function isArray(o) {
   return (o.constructor === Array);
@@ -60,7 +59,7 @@ function isArray(o) {
 /**
  * Checks if an object is an array of arrays.
  * @param {*} o Object.
- * @returns {Boolean} A boolean to indicate if the object is array of arrays.
+ * @returns {boolean} A boolean to indicate if the object is array of arrays.
  */
 function isArrayOfArray(o) {
   if (isArray(o)) {
@@ -75,10 +74,10 @@ function isArrayOfArray(o) {
 
 /**
  * Sets the CPT entries to the specified probabilities.
- * @param {Array} cpt Array of nested arrays representing a CPT.
- * @param {Array} probs Array of arrays of probabilities representing a CPT.
- * @param {Number} index The current index.
- * @returns {Number} The next index.
+ * @param {any[]} cpt Array of nested arrays representing a CPT.
+ * @param {number[][]} probs Array of arrays of probabilities representing a CPT.
+ * @param {number} index The current index.
+ * @returns {number} The next index.
  */
 function setNodeCptProbs(cpt, probs, index) {
   if (!isArrayOfArray(cpt)) {
@@ -98,10 +97,10 @@ function setNodeCptProbs(cpt, probs, index) {
 
 /**
  * Initializes a node's CPT.
- * @param {Array} values Array of values.
- * @param {Array} parents Array of parents.
- * @param {Array} probs Array of arrays of probabilities.
- * @returns {Array} Array of nested arrays representing a CPT.
+ * @param {any[]} values Array of values.
+ * @param {JNode[]} parents Array of parents.
+ * @param {number[][]} probs Array of arrays of probabilities.
+ * @returns {any[]} Array of nested arrays representing a CPT.
  */
 function initNodeCpt(values, parents, probs) {
   const cpt = initCptWithParents(values, parents, 0);
@@ -113,8 +112,8 @@ function initNodeCpt(values, parents, probs) {
  * Normalizes an array of values such that the elements sum to 1.0. Note that
  * 0.001 is added to every value to avoid 0.0 probabilities. This adjustment
  * helps with visualization downstream.
- * @param {Array} arr Array of probabilities.
- * @returns {Array} Normalized probailities.
+ * @param {number[]} arr Array of probabilities.
+ * @returns {number[]} Normalized probailities.
  */
 function normalizeProbs(arr) {
   const probs = [];
@@ -131,8 +130,8 @@ function normalizeProbs(arr) {
 
 /**
  * Normalizes a CPT.
- * @param {Array} cpts Array of arrays (matrix) representing a CPT.
- * @returns {Array} Normalized CPT.
+ * @param {number[][]} cpts Array of arrays (matrix) representing a CPT.
+ * @returns {number[][]} Normalized CPT.
  */
 function normalizeCpts(cpts) {
   const probs = [];
@@ -214,6 +213,9 @@ export class JNode {
     this._sampledLw = undefined;
   }
 
+  /**
+   * @returns {number}
+   */
   sampleLw() {
     if (this.wasSampled) {
       return 1;
@@ -247,6 +249,9 @@ export class JNode {
     return fa;
   }
 
+  /**
+   * @param {number} f 
+   */
   saveSampleLw(f) {
     if (!this._sampledLw) {
       this._sampledLw = new Array(this.values.length);
@@ -257,6 +262,9 @@ export class JNode {
     this._sampledLw[this.value] += f;
   }
 
+  /**
+   * @param {number[]} probs 
+   */
   setCpt(probs) {
     if (this.parents.length === 0) {
       this.cpt = normalizeProbs(probs);
@@ -265,6 +273,9 @@ export class JNode {
     }
   }
 
+  /**
+   * @returns {number[]}
+   */
   probs() {
     if (!this._sampledLw) {
       return [];
@@ -294,6 +305,10 @@ export class JGraph {
     });
   }
 
+  /**
+   * @param {*} samples 
+   * @returns {number}
+   */
   async sample(samples) {
     if (this.saveSamples) {
       // reset the samples if we want to save them

@@ -1,6 +1,6 @@
 {
   "name": "@fizz/jsbayes",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "Simple Bayesian Belief Network (BBN) library in JavaScript.",
   "author": "Jee Vang <vangjee@gmail.com> (http://vangjee.wordpress.com)",
   "license": "Apache-2.0",

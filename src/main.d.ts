@@ -9,6 +9,7 @@ export class JNode {
     _sampledLw: number[] | undefined;
     dirty: boolean;
     isObserved: boolean;
+    cpt: any[];
     addParent(parent: JNode): JNode;
     valueIndex(v: any): number;
     valueIndexMap: {};
@@ -17,8 +18,7 @@ export class JNode {
     initSampleLw(): void;
     sampleLw(): number;
     saveSampleLw(f: number): void;
-    setCpt(probs: number[]): void;
-    cpt: any[] | number[];
+    setCpt(probs: number[] | number[][]): void;
     probs(): number[];
 }
 export class JGraph {
@@ -26,7 +26,7 @@ export class JGraph {
     saveSamples: boolean;
     samples: any[];
     reinit(): Promise<void>;
-    sample(samples: any): number;
+    sample(samples: any): Promise<number>;
     update(m: any): void;
     node(name: string): JNode;
     nodeMap: {};

@@ -164,6 +164,8 @@ export class JNode {
     this.dirty = false;
     /** @type {boolean} */
     this.isObserved = false;
+    /** @type {any[]} */
+    this.cpt = [];
   }
 
   /**
@@ -263,13 +265,14 @@ export class JNode {
   }
 
   /**
-   * @param {number[]} probs 
+   * @param {number[] | number[][]} probs 
    */
   setCpt(probs) {
     if (this.parents.length === 0) {
-      this.cpt = normalizeProbs(probs);
+      this.cpt =  normalizeProbs(/** @type {number[]} */ (probs));
     } else {
-      this.cpt = initNodeCpt(this.values, this.parents, normalizeCpts(probs));
+      this.cpt = initNodeCpt(this.values, this.parents, 
+        normalizeCpts(/** @type {number[][]} */ (probs)));
     }
   }
 
@@ -307,7 +310,7 @@ export class JGraph {
 
   /**
    * @param {*} samples 
-   * @returns {number}
+   * @returns {Promise<number>}
    */
   async sample(samples) {
     if (this.saveSamples) {
@@ -360,7 +363,7 @@ export class JGraph {
 
       tnode.value = unode.value;
       tnode.wasSampled = unode.wasSampled;
-      tnode.sampledLw = unode.sampledLw;
+      tnode._sampledLw = unode._sampledLw;
     }
   }
 

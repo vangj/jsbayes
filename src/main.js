@@ -202,7 +202,7 @@ export class JNode {
       this.isObserved = true;
       this.value = index;
     } else {
-      console.error('could not find value ' + value + ' for node ' + name);
+      console.error('could not find value ' + value + ' for node ' + this.name);
     }
   }
 
